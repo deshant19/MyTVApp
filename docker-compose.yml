@@ -1,0 +1,43 @@
+version: '3'
+services:
+
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: mysqldb
+    ports:
+      - 3307:3306
+    restart: always
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+      
+#  app:
+#    image: mytvapp:v1
+#    ports:
+#       - 8080:8080
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/mysqldb
+#      SPRING_DATASOURCE_USERNAME: user
+#      SPRING_DATASOURCE_PASSWORD: root
+#    depends_on:
+#       - mysql
+       
+#  server:
+#    build: .
+#    restart: always
+#    ports:
+#      - 8080:8080
+#    depends_on:
+#      - mysql
+
+
+# docker-compose up -d --build
+# docker-compose down
+
+# docker build -t mytvapp:ex1 .
+# docker run -p 8080:8080 mytvapp:ex1
